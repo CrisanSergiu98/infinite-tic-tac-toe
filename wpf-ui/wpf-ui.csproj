@@ -7,11 +7,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\ambient_loop.mp3" />
+    <None Remove="Assets\ambient_loop.wav" />
     <None Remove="Assets\Grid.png" />
     <None Remove="Assets\Icon.ico" />
+    <None Remove="Assets\move.mp3" />
+    <None Remove="Assets\move.wav" />
     <None Remove="Assets\O0.png" />
     <None Remove="Assets\O1.png" />
     <None Remove="Assets\O10.png" />
@@ -47,14 +52,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\ambient_loop.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icon.ico" />
+    <Content Include="Assets\move.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\infinite-tic-tac-toe\infinite-tic-tac-toe.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\Grid.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\O0.png">

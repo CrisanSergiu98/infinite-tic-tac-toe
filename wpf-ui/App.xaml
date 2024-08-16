@@ -4,8 +4,9 @@
              xmlns:local="clr-namespace:wpf_ui"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <SolidColorBrush x:Key="BackgroundColor" Color="#f48a2e"/>
-        <SolidColorBrush x:Key="ButtonColor" Color="#ffb966"/>
-        <SolidColorBrush x:Key="LineColor" Color="#01fd0a"/>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#c0c0c0"/>
+        <SolidColorBrush x:Key="ButtonColor" Color="#c0c0c0"/>
+        <SolidColorBrush x:Key="LineColor" Color="#2f4f4f"/>
+        <SolidColorBrush x:Key="TextColor" Color="#4c5762"/>
     </Application.Resources>
 </Application>

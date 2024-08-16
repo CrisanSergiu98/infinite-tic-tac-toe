@@ -5,9 +5,9 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{36A7C5F2-2E7E-4DB2-A07B-A22BC0931584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wpf-ui", "wpf-ui\wpf-ui.csproj", "{2A2C05E5-B8FB-4CAD-8FA3-C8BEDE1BEB73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wpf-ui", "wpf-ui\wpf-ui.csproj", "{2A2C05E5-B8FB-4CAD-8FA3-C8BEDE1BEB73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "infinite-tic-tac-toe", "infinite-tic-tac-toe\infinite-tic-tac-toe.csproj", "{9229C3AA-84A2-4931-A5CD-98ECF1A6BFA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "infinite-tic-tac-toe", "infinite-tic-tac-toe\infinite-tic-tac-toe.csproj", "{9229C3AA-84A2-4931-A5CD-98ECF1A6BFA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

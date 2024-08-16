@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="Infinite-Tic-Tac-Toe" Height="450" Width="800"
         FontFamily="Segone UI Light"
-        Background="{StaticResource BackgroundColor}">
-    <Grid>
+        Background="{StaticResource BackgroundColor}"
+        WindowStartupLocation="CenterScreen">
+    <Viewbox>
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -20,17 +22,19 @@
             
             <TextBlock FontSize="54"
                        Text="Player:"
-                       Margin="0,0,0,15"/>
+                       Margin="15,0,0,0"
+                       Foreground="{StaticResource TextColor}"/>
             
-            <Image x:Name="PlayerImage"
+            <Image x:Name="PieceImage"
                    Source="Assets/X15.png"
-                   Height="75"/>
+                   Height="54"/>
         </StackPanel>
 
         <Canvas x:Name="GameCanvas"
                 Grid.Row="1"
                 Width="300"
-                Height="300">
+                Height="300"
+                Margin="20">
             <UniformGrid x:Name="GameGrid"
                          Width="300"
                          Height="300"
@@ -39,10 +43,14 @@
                          MouseDown="GameGrid_MouseDown">
                 <UniformGrid.Background>
                     <ImageBrush ImageSource="Assets/Grid.png"/>
-                </UniformGrid.Background>
-
-                
-            </UniformGrid>
+                </UniformGrid.Background>                
+            </UniformGrid>            
+            <Line x:Name="Line"
+                  Stroke="{StaticResource LineColor}"
+                  StrokeThickness="10"
+                  StrokeStartLineCap="Round"
+                  StrokeEndLineCap="Round"
+                  Visibility="Hidden"/>
         </Canvas>
 
         <Grid x:Name="EndScreen"
@@ -56,21 +64,25 @@
                     <TextBlock x:Name="ResultText"
                                FontSize="54"
                                Text="Winner:"
-                               Margin="0,0,0,15"/>
+                               Margin="15,0,0,0"
+                               Foreground="{StaticResource TextColor}"/>
                     <Image x:Name="WinnerImage"
-                           Width="75"
+                           Width="54"
                            Source="Assets/X15.png"/>
                 </StackPanel>
                 <Button Content="Play Again"
-                        Background="{StaticResource BackgroundColor}"
+                        Background="{StaticResource BackgroundColor}"                        
                         FontSize="34"
                         Width="200"
                         Margin="0,20,0,0"
                         Padding="0,0,0,5"
                         BorderBrush="Black"
-                        Click="Button_Click"/>
+                        Click="Button_Click"
+                        Foreground="{StaticResource TextColor}"/>
             </StackPanel>
             
         </Grid>
-    </Grid>    
+    </Grid>  
+    </Viewbox>
+      
 </Window>

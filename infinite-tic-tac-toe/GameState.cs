@@ -4,39 +4,43 @@ namespace infinite_tic_tac_toe;
 
 public class GameState
 {
-    public Player[,] GameGrid {  get; private set; }
-    public Player CurrentPlayer { get; private set; }
-    public int TurnsPassed {  get; private set; }
+    private const int MaxMoves = 7;
+    public Piece[,] GameGrid {  get; private set; }
+    public Piece CurrentPlayer { get; private set; }
+    public (int,int) GetNextRemoval { get => GameHistory.Peek(); }
+    public int GetTurnCount { get => GameHistory.Count; }
+
+    private Queue<(int, int)> GameHistory = new Queue<(int, int)>();
     public bool GameOver {  get; private set; }
 
     public event Action<int, int> MoveMade;
     public event Action<GameResult> GameEnded;
     public event Action GameRestarted;
+    public event Action<int, int> PieceRemoved;
 
     public GameState()
     {
-        GameGrid = new Player[3,3];
-        CurrentPlayer = Player.X;
-        TurnsPassed = 0;
-        GameOver = false;
+        GameGrid = new Piece[3,3];
+        CurrentPlayer = Piece.X;
+        GameOver = false;        
+    }
+
+    public bool RemovalNextTurn()
+    {
+        return GetTurnCount >= MaxMoves - 1;
     }
 
     private bool CanMove(int x, int y)
     {
-        return !GameOver && GameGrid[x,y] == Player.None;
+        return !GameOver && GameGrid[x,y] == Piece.None;
     }
-
-    private bool IsGridFull()
-    {
-        return TurnsPassed == 9;
-    }
-
+    
     private void SwitchPlayer()
     {
-        CurrentPlayer = CurrentPlayer == Player.X? Player.O: Player.X;
+        CurrentPlayer = CurrentPlayer == Piece.X? Piece.O: Piece.X;
     }
 
-    private bool AreSquaresMarked((int, int)[] squares, Player player)
+    private bool AreSquaresMarked((int, int)[] squares, Piece player)
     {
         foreach ((int x, int y) in squares) 
         {
@@ -55,25 +59,25 @@ public class GameState
 
         if(AreSquaresMarked(row, CurrentPlayer))
         {
-            winInfo = new WinInfo { Type = WinType.Row, Number = x };
+            winInfo = new WinInfo { Type = WinningCondition.Row, Number = x };
             return true;
         }
 
         if (AreSquaresMarked(col, CurrentPlayer))
         {
-            winInfo = new WinInfo { Type = WinType.Column, Number = y };
+            winInfo = new WinInfo { Type = WinningCondition.Column, Number = y };
             return true;
         }
 
         if (AreSquaresMarked(mainDiag, CurrentPlayer))
         {
-            winInfo = new WinInfo { Type = WinType.MainDiagonal };
+            winInfo = new WinInfo { Type = WinningCondition.MainDiagonal };
             return true;
         }
 
         if (AreSquaresMarked(antiDiag, CurrentPlayer))
         {
-            winInfo = new WinInfo { Type = WinType.AntiDiagonal };
+            winInfo = new WinInfo { Type = WinningCondition.AntiDiagonal };
             return true;
         }
 
@@ -90,12 +94,6 @@ public class GameState
             return true;
         }
 
-        if (IsGridFull())
-        {
-            gameResult = new GameResult { Winner = Player.None };
-            return true;
-        }
-
         gameResult = null;
 
         return false;
@@ -109,27 +107,39 @@ public class GameState
         }
 
         GameGrid[x, y] = CurrentPlayer;
-        TurnsPassed++;
 
-        if(DidMoveEndGame(x,y, out GameResult gameResult))
+        if (DidMoveEndGame(x, y, out GameResult gameResult))
         {
             GameOver = true;
-            MoveMade?.Invoke(x,y);
+            MoveMade?.Invoke(x, y);
             GameEnded?.Invoke(gameResult);
         }
         else
         {
             SwitchPlayer();
-            MoveMade?.Invoke(x,y);
+            GameHistory.Enqueue((x,y));
+            
+
+            if (GetTurnCount >= MaxMoves)
+            {
+                int xToRemove = GameHistory.Peek().Item1;
+                int yToRemove = GameHistory.Peek().Item2;
+
+                GameGrid[xToRemove, yToRemove] = Piece.None;
+                GameHistory.Dequeue();
+
+                PieceRemoved?.Invoke(xToRemove, yToRemove);
+            }
+            MoveMade?.Invoke(x, y);
         }
-    }
+    }    
 
     public void Reset()
     {
-        GameGrid = new Player[3,3];
-        CurrentPlayer = Player.X;
-        TurnsPassed = 0;
+        GameGrid = new Piece[3,3];
+        CurrentPlayer = Piece.X;
         GameOver = false;
+        GameHistory = new Queue<(int, int)>();
         GameRestarted?.Invoke();
     }
 }

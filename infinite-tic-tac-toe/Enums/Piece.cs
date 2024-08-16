@@ -1,6 +1,6 @@
 ﻿namespace infinite_tic_tac_toe.Enums;
 
-public enum Player
+public enum Piece
 {
     None,
     X,
